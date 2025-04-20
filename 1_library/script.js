@@ -1,33 +1,24 @@
 const myLibrary = [];
 const container = document.querySelector('#container')
-const bookSubmitForm = document.querySelector('#BookSubmitForm')
-const book_inputs = ["title", "author", "num-pages"]
-const book_inputs_types = ["text", "text", "number"]
+const bookSubmitForm = document.querySelector('#book-submit-form')
 
 const addBookBtn = document.querySelector('.AddBookBtn')
 addBookBtn.addEventListener('click', () => {
-  // create input element for each datapoint needed to save book
-  book_inputs.forEach(function(el) {
-    let new_input = document.createElement("input")
-    new_input.placeholder = el
-    bookSubmitForm.appendChild(new_input)
-  })
-  // temporarily disable the button, so that more inputs cannot be made
+  bookSubmitForm.style.display = "block"
   addBookBtn.disabled = true
-
-  // create a submit-book button
-  let submitBookBtn = document.createElement("button")
-  submitBookBtn.setAttribute("class", "SubmitBookBtn")
-  submitBookBtn.textContent = "submit"
-  submitBookBtn.addEventListener("click", () => {
-    
-  })
-  bookSubmitForm.appendChild(submitBookBtn)
 })
 
-function addBookToLibrary(title, author, pages, read=false) {
-  myLibrary.push(new Book(title, author, pages, read))
-}
+const input_title = document.querySelector('#title')
+const input_author = document.querySelector('#author')
+const input_pages = document.querySelector('#pages')
+
+const submitBookBtn = document.querySelector(".SubmitBookBtn")
+submitBookBtn.addEventListener("click", () => {
+  addBookToLibrary(input_title.value, input_author.value, input_pages.value)
+  bookSubmitForm.style.display = "none"
+  addBookBtn.disabled = false
+  displayLibrary()
+})
 
 function Book(title, author, pages, read) {
   if (!new.target) {
@@ -43,22 +34,38 @@ function Book(title, author, pages, read) {
   }
 }
 
+function addBookToLibrary(title, author, pages, read=false) {
+  myLibrary.push(new Book(title, author, pages, read))
+}
+
 function displayLibrary() {
+  container.innerHTML = ''
   myLibrary.forEach((book) => {
-    const entry = document.createElement("li");
+    const entry = document.createElement("li")
     entry.textContent = book.info()
     
     // remove button functionality
     const RemoveBtn = document.createElement("button")
     RemoveBtn.setAttribute("class", "RemoveBtn")
     entry.appendChild(RemoveBtn)
-    RemoveBtn.textContent = "remove"
+    RemoveBtn.textContent = "Del"
     RemoveBtn.addEventListener('click', () => {
-      container.removeChild(entry);
-    });
+      container.removeChild(entry)
+    })
 
-    // read toggle will go here
-    //
+    // read toggle functionality
+    const ReadToggleBtn = document.createElement("button")
+    ReadToggleBtn.setAttribute("class", "ReadToggleBtn")
+    entry.appendChild(ReadToggleBtn)
+    ReadToggleBtn.textContent = "V"
+    ReadToggleBtn.addEventListener('click', () => {
+      if (book.read) {
+        book.read = false
+      } else {
+        book.read = true
+      }
+      displayLibrary()
+    })
 
     container.appendChild(entry)
   })
@@ -66,8 +73,4 @@ function displayLibrary() {
 
 
 /// testing
-addBookToLibrary('The Hobbit', 'J.R.R Tolkien', 295, false)
-addBookToLibrary('The Bible', "God", 420, false)
-addBookToLibrary('1984', "George Orwell", 328, true)
-
 displayLibrary()

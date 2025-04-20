@@ -1,3 +1,7 @@
+#book-submit-form {
+    display: none;
+}
+
 button {
     text-align: center;
     font-family: 'Courier New', Courier, monospace;
@@ -7,8 +11,8 @@ button {
 
 .RemoveBtn {
     font-size: 8px;
-    height: 10px;
-    width: 40px;
+    height: 15px;
+    width: 30px;
     color: rgb(24, 24, 24);
     background-color: rgb(255, 200, 200);
 }
@@ -30,6 +34,15 @@ button {
     background-color: rgb(9, 99, 1);
 }
 
+.ReadToggleBtn {
+    color: antiquewhite;
+    background-color: blue;
+}
+
 button:disabled {
     opacity: 0.2;
+}
+
+button:active {
+    background-color: rgb(255, 255, 255);
 }

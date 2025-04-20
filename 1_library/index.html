@@ -8,10 +8,17 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    The Library is Open<br>
+    The Library is Open!<br>
     Books available are:
-    <ul id="container"></ul>
+    <ul id="container">
+        <!--Books will be displayed here-->
+    </ul>
     <button class="AddBookBtn">Add Book</button>
-    <div id="BookSubmitForm"></div>
+    <div id="book-submit-form">
+        <input type="text" id="title" name="title" placeholder="title">
+        <input type="text" id="author" name="author" placeholder="author">
+        <input type="number" id="pages" name="pages" placeholder="num-pages">
+        <button class="SubmitBookBtn">Submit</button>
+    </div>
 </body>
 </html>
