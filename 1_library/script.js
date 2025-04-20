@@ -1,5 +1,9 @@
 const myLibrary = [];
 const container = document.querySelector('#container')
+const addBookBtn = document.querySelector('#AddBookBtn')
+addBookBtn.addEventListener('click', () => {
+  // creates Form
+})
 
 function Book(title, author, pages, read) {
   if (!new.target) {
@@ -26,7 +30,7 @@ function displayLibrary() {
     
     // remove button functionality
     const remove_button = document.createElement("button")
-    remove_button.setAttribute("class", "remove")
+    remove_button.setAttribute("class", "RemoveBtn")
     entry.appendChild(remove_button)
     remove_button.textContent = "remove"
     remove_button.addEventListener('click', () => {
@@ -37,6 +41,8 @@ function displayLibrary() {
   })
 }
 
+
+/// testing
 addBookToLibrary('The Hobbit', 'J.R.R Tolkien', 295, false)
 addBookToLibrary('The Bible', "God", 420, false)
 addBookToLibrary('1984', "George Orwell", 328, true)
