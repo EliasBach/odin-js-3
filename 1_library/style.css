@@ -13,10 +13,23 @@ button {
     background-color: rgb(255, 200, 200);
 }
 
-#AddBookBtn {
+.AddBookBtn {
     font-size: 12px;
     height: 20px;
     width: 100px;
     color: rgb(24, 24, 24);
     background-color: rgb(205, 255, 200);
+}
+
+.SubmitBookBtn {
+    font-size: 12px;
+    font-weight: bold;
+    height: 20px;
+    width: 100px;
+    color: rgb(212, 212, 212);
+    background-color: rgb(9, 99, 1);
+}
+
+button:disabled {
+    opacity: 0.2;
 }
