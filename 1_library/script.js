@@ -11,7 +11,7 @@ function Book(title, author, pages, read) {
   this.read = read // boolean
   this.id = crypto.randomUUID()
   this.info = function() {
-    return `${this.title} by ${this.author}, ${this.pages} pages, ${read ? "read" : "not yet read"}`
+    return `${this.title} by ${this.author}, ${this.pages} pages, ${read ? "read" : "not yet read"} `
   }
 }
 
@@ -21,9 +21,19 @@ function addBookToLibrary(title, author, pages, read) {
 
 function displayLibrary() {
   myLibrary.forEach((book) => {
-    const para = document.createElement("p");
-    para.textContent = book.info()
-  container.appendChild(para)
+    const entry = document.createElement("li");
+    entry.textContent = book.info()
+    
+    // remove button functionality
+    const remove_button = document.createElement("button")
+    remove_button.setAttribute("class", "remove")
+    entry.appendChild(remove_button)
+    remove_button.textContent = "remove"
+    remove_button.addEventListener('click', () => {
+      container.removeChild(entry);
+    });
+    
+    container.appendChild(entry)
   })
 }
 
