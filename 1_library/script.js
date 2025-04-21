@@ -8,16 +8,22 @@ addBookBtn.addEventListener('click', () => {
   addBookBtn.disabled = true
 })
 
-const input_title = document.querySelector('#title')
-const input_author = document.querySelector('#author')
-const input_pages = document.querySelector('#pages')
+let input_title = document.querySelector('#title')
+let input_author = document.querySelector('#author')
+let input_pages = document.querySelector('#pages')
+function reset_inputs() {
+  input_title.value = ""
+  input_author.value = ""
+  input_pages.value = ""
+}
 
 const submitBookBtn = document.querySelector(".SubmitBookBtn")
 submitBookBtn.addEventListener("click", () => {
   addBookToLibrary(input_title.value, input_author.value, input_pages.value)
+  displayLibrary()
   bookSubmitForm.style.display = "none"
   addBookBtn.disabled = false
-  displayLibrary()
+  reset_inputs()
 })
 
 function Book(title, author, pages, read) {
@@ -47,30 +53,32 @@ function displayLibrary() {
     // remove button functionality
     const RemoveBtn = document.createElement("button")
     RemoveBtn.setAttribute("class", "RemoveBtn")
-    entry.appendChild(RemoveBtn)
     RemoveBtn.textContent = "Del"
-    RemoveBtn.addEventListener('click', () => {
-      container.removeChild(entry)
-    })
+    RemoveBtn.addEventListener('click', (e) => removeEntry(book, e))
+    entry.appendChild(RemoveBtn)
 
     // read toggle functionality
     const ReadToggleBtn = document.createElement("button")
     ReadToggleBtn.setAttribute("class", "ReadToggleBtn")
-    entry.appendChild(ReadToggleBtn)
     ReadToggleBtn.textContent = "V"
-    ReadToggleBtn.addEventListener('click', () => {
-      if (book.read) {
-        book.read = false
-      } else {
-        book.read = true
-      }
-      displayLibrary()
-    })
-
+    ReadToggleBtn.addEventListener('click', (e) => toggleEntry(book, e))
+    entry.appendChild(ReadToggleBtn)
     container.appendChild(entry)
   })
 }
 
+// remove button functionality
+function removeEntry (book, e) {
+  const BookEntry = e.currentTarget.parentNode
+  const Container = BookEntry.parentNode
+  Container.removeChild(BookEntry)
+  myLibrary.pop(book)
+}
 
-/// testing
-displayLibrary()
+// read toggle functionality
+function toggleEntry (book, e) {
+  myLibrary.pop(book)
+  book.read ? book.read = false : book.read = true
+  myLibrary.push(book)
+  displayLibrary()
+}
