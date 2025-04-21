@@ -35,8 +35,9 @@ button {
 }
 
 .ReadToggleBtn {
-    color: antiquewhite;
-    background-color: blue;
+    font-size: 10px;
+    color: rgb(24, 24, 24);
+    background-color: rgb(200, 200, 255);
 }
 
 button:disabled {

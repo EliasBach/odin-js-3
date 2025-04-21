@@ -35,9 +35,15 @@ function Book(title, author, pages, read) {
   this.pages = pages // number
   this.read = read // boolean
   this.id = crypto.randomUUID()
-  this.info = function() {
-    return `${this.title} by ${this.author}, ${this.pages} pages, ${read ? "read" : "not yet read"} `
-  }
+}
+
+Book.prototype.toggleReadStatus = function() {
+  this.read = !this.read
+  return this.read_status
+}
+
+Book.prototype.info = function() {
+  return `${this.title} by ${this.author}, ${this.pages} pages | `
 }
 
 function addBookToLibrary(title, author, pages, read=false) {
@@ -50,21 +56,28 @@ function displayLibrary() {
   myLibrary.forEach((book) => {
     const entry = document.createElement("li")
     entry.textContent = book.info()
-    
-    // remove button functionality
+
+    // read status toggle button definiton 
+    const ReadToggleBtn = document.createElement("button")
+    ReadToggleBtn.setAttribute("class", "ReadToggleBtn")
+    ReadToggleBtn.textContent = "not read"
+    ReadToggleBtn.addEventListener('click', (e) => toggleEntry(book, e))
+    entry.appendChild(ReadToggleBtn)
+    container.appendChild(entry)
+
+    // if book has been read, grey out the displayed text and button
+    if (book.read) {
+      entry.style.color = "grey"
+      ReadToggleBtn.textContent = "read"
+    }
+
+    // remove button defintion
     const RemoveBtn = document.createElement("button")
     RemoveBtn.setAttribute("class", "RemoveBtn")
     RemoveBtn.textContent = "Del"
     RemoveBtn.addEventListener('click', (e) => removeEntry(book, e))
     entry.appendChild(RemoveBtn)
 
-    // read toggle functionality
-    const ReadToggleBtn = document.createElement("button")
-    ReadToggleBtn.setAttribute("class", "ReadToggleBtn")
-    ReadToggleBtn.textContent = "V"
-    ReadToggleBtn.addEventListener('click', (e) => toggleEntry(book, e))
-    entry.appendChild(ReadToggleBtn)
-    container.appendChild(entry)
   })
   console.table(myLibrary)
 }
@@ -83,13 +96,13 @@ function removeEntry (book, e) {
   displayLibrary()
 }
 
-// read toggle functionality
+// read status toggle functionality
 function toggleEntry (book, e) {
-  book.read ? book.read = false : book.read = true
+  book.toggleReadStatus()
   displayLibrary()
 }
 
-addBookToLibrary("The Bible", "God", 420)
-addBookToLibrary("1984", "George Orwell", 328)
-addBookToLibrary("XXX", "YYY", 123)
+addBookToLibrary("The Bible", "God", '666')
+addBookToLibrary("1984", "George Orwell", '328', true)
+addBookToLibrary("The Hobbit", "J. R. R. Tolkien", '123')
 displayLibrary()
