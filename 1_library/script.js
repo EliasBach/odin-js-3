@@ -1,4 +1,4 @@
-const myLibrary = [];
+let myLibrary = [];
 const container = document.querySelector('#container')
 const bookSubmitForm = document.querySelector('#book-submit-form')
 
@@ -41,7 +41,8 @@ function Book(title, author, pages, read) {
 }
 
 function addBookToLibrary(title, author, pages, read=false) {
-  myLibrary.push(new Book(title, author, pages, read))
+  let newbook = new Book(title, author, pages, read)
+  myLibrary.push(newbook)
 }
 
 function displayLibrary() {
@@ -65,6 +66,12 @@ function displayLibrary() {
     entry.appendChild(ReadToggleBtn)
     container.appendChild(entry)
   })
+  console.table(myLibrary)
+}
+
+// to access specific book, use the id
+function getBookbyID(id) {
+  return myLibrary.find(book => book.id === id)
 }
 
 // remove button functionality
@@ -72,13 +79,17 @@ function removeEntry (book, e) {
   const BookEntry = e.currentTarget.parentNode
   const Container = BookEntry.parentNode
   Container.removeChild(BookEntry)
-  myLibrary.pop(book)
+  myLibrary = myLibrary.filter(allbooks => allbooks.id != book.id);
+  displayLibrary()
 }
 
 // read toggle functionality
 function toggleEntry (book, e) {
-  myLibrary.pop(book)
   book.read ? book.read = false : book.read = true
-  myLibrary.push(book)
   displayLibrary()
 }
+
+addBookToLibrary("The Bible", "God", 420)
+addBookToLibrary("1984", "George Orwell", 328)
+addBookToLibrary("XXX", "YYY", 123)
+displayLibrary()
