@@ -20,35 +20,38 @@ const tttGame = (function () {
         }
         move_counter++
 
-        console.log("b", checkWin())
+        console.log("b", checkWin)
 
         return board
     }
 
     function checkWin () {
-        // win horizontal wins: 
-        // marker in rowX[0] = rowX[1] = rowX[2] 
-        board.forEach((row) => {
-            if ((row[0] == row[1]) && (row[1] == row[2])){
-                console.log("a")
-                return true
+        // let win = false
+        let win = true
+        while (!win) {
+            // check horizontal wins: 
+            // marker in rowX[0] = rowX[1] = rowX[2] 
+            board.forEach((row) => {
+                
+                if ((row[0] == row[1]) && (row[1] == row[2])){
+                    console.log("a")
+                    win = true
+                }
+            })
+                
+            // check vertical wins: 
+            // marker in row1[i] = row2[i] = row3[i]
+            for (let i=0; i<3; i++) {
+                if ((row1[i] == row2[i]) && (row2[i] == row3[i])) {
+                    win = true
+                } 
             }
-        })
-        // win vertical wins: 
-        // marker in row1[i] = row2[i] = row3[i]
-        for (let i=0; i<3; i++) {
-            if ((row1[i] == row2[i]) && (row2[i] == row3[i])) {
-                return true
-            } 
+
+            // check diagonal wins:
+            // marker in row1[0/2] = row2[1] = row3[2/0]
+        break
         }
-
-        return false
-
-        // win diagonal wins:
-        // marker in row1[0/2] = row2[1] = row3[2/0]
-
-        // if no: continue to ask for input
-        // if yes: end game
+        return win
     }
 
     function reset() {
