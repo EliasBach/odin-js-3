@@ -19,7 +19,6 @@ const tttGame = (function () {
             board[row][col] = markers[1]
         }
         tttGame.turn_counter++
-        return board
     }
 
     function checkWin () {
@@ -57,11 +56,11 @@ const tttGame = (function () {
     }
 
     function reset() {
-        tttGame.row1 = [".", ",", "."]
-        tttGame.row2 = [",", "+", ","]
-        tttGame.row3 = [".", ",", "."]
-        tttGame.board = [row1, row2, row3]
-        tttGame.turn_counter = 0
+        row1 = [".", ",", "."]
+        row2 = [",", "+", ","]
+        row3 = [".", ",", "."]
+        board = [row1, row2, row3]
+        turn_counter = 0
     }
 
     return {board, markers, turn_counter, playMove, checkWin, reset};
@@ -74,24 +73,23 @@ const tttGameDisplay = (function () {
         box.addEventListener("click", function(){
             tttGame.playMove(this.id)
             console.table(tttGame.board)
-            console.log(tttGame.turn_counter)
-            console.log(tttGame.checkWin())
+            console.log("turn", tttGame.turn_counter)
+            console.log("win:", tttGame.checkWin())
             this.disabled = true
         })
     })
 
-    function reset() {
+    function restart() {
+        console.log("RESET")
         boxElements.forEach(box => {
             box.disabled = false
         })
         tttGame.reset()
+        console.table(tttGame.board)
     }
 
     const resetBtn = document.querySelector(".reset")
-    resetBtn.addEventListener("click", reset)
-
-
-    // take tttGame.board and update display accordingly
+    resetBtn.addEventListener("click", restart)
 
   return {}
 })();
