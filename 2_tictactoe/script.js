@@ -6,22 +6,19 @@ const tttGame = (function () {
     let row2 = [",", "+", ","]
     let row3 = [".", ",", "."]
     let board = [row1, row2, row3]
-    let move_counter = 0
+    let turn_counter = 0
     const markers = ["x", "o"]
 
     function playMove (box_id) {
         let row = box_id[0]
         let col = box_id[1]
 
-        if (move_counter%2 == 0) {
+        if (tttGame.turn_counter%2 == 0) {
             board[row][col] = markers[0]
         } else {
             board[row][col] = markers[1]
         }
-        move_counter++
-
-        console.log("b", checkWin())
-
+        tttGame.turn_counter++
         return board
     }
 
@@ -41,7 +38,6 @@ const tttGame = (function () {
             // marker in row1[i] = row2[i] = row3[i]
             for (let i=0; i<3; i++) {
                 if ((row1[i] == row2[i]) && (row2[i] == row3[i])) {
-                    console.log("checking col", i)
                     win = true
                 } 
             }
@@ -61,24 +57,41 @@ const tttGame = (function () {
     }
 
     function reset() {
-        //reset game
+        tttGame.row1 = [".", ",", "."]
+        tttGame.row2 = [",", "+", ","]
+        tttGame.row3 = [".", ",", "."]
+        tttGame.board = [row1, row2, row3]
+        tttGame.turn_counter = 0
     }
 
-    return {board, playMove};
+    return {board, markers, turn_counter, playMove, checkWin, reset};
 })();
 
-tttGame.playMove("12") // x
-tttGame.playMove("00")
-tttGame.playMove("11") // x
-tttGame.playMove("22")
-tttGame.playMove("10") // x
-tttGame.playMove("11")
-console.table(tttGame.board)
+const tttGameDisplay = (function () {
+    // assign interactity to each box
+    const boxElements = document.querySelectorAll(".box")
+    boxElements.forEach(box => {
+        box.addEventListener("click", function(){
+            tttGame.playMove(this.id)
+            console.table(tttGame.board)
+            console.log(tttGame.turn_counter)
+            console.log(tttGame.checkWin())
+            this.disabled = true
+        })
+    })
+
+    function reset() {
+        boxElements.forEach(box => {
+            box.disabled = false
+        })
+        tttGame.reset()
+    }
+
+    const resetBtn = document.querySelector(".reset")
+    resetBtn.addEventListener("click", reset)
 
 
+    // take tttGame.board and update display accordingly
 
-
-function displaytttBoard (tttBoard) {
-  // takes grid and displays in on the html page
-}
-
+  return {}
+})();
