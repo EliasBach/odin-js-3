@@ -3,7 +3,7 @@
 
 const tttGame = (function () {
     let row1 = [".", ",", "."]
-    let row2 = [",", ".", ","]
+    let row2 = [",", "+", ","]
     let row3 = [".", ",", "."]
     let board = [row1, row2, row3]
     let move_counter = 0
@@ -20,36 +20,42 @@ const tttGame = (function () {
         }
         move_counter++
 
-        console.log("b", checkWin)
+        console.log("b", checkWin())
 
         return board
     }
 
     function checkWin () {
-        // let win = false
-        let win = true
+        let win = false
         while (!win) {
             // check horizontal wins: 
             // marker in rowX[0] = rowX[1] = rowX[2] 
             board.forEach((row) => {
-                
                 if ((row[0] == row[1]) && (row[1] == row[2])){
-                    console.log("a")
                     win = true
                 }
             })
+            if(win) {break}
                 
             // check vertical wins: 
             // marker in row1[i] = row2[i] = row3[i]
             for (let i=0; i<3; i++) {
                 if ((row1[i] == row2[i]) && (row2[i] == row3[i])) {
+                    console.log("checking col", i)
                     win = true
                 } 
             }
+            if(win) {break}
 
             // check diagonal wins:
             // marker in row1[0/2] = row2[1] = row3[2/0]
-        break
+            if ((row1[0] == row3[2]) && (row1[0] == row2[1])) {
+                win = true
+            }
+            if ((row1[2] == row3[0]) && (row1[2] == row2[1])) {
+                win = true
+            }
+            break
         }
         return win
     }
@@ -61,12 +67,12 @@ const tttGame = (function () {
     return {board, playMove};
 })();
 
-tttGame.playMove("12")
+tttGame.playMove("12") // x
 tttGame.playMove("00")
-tttGame.playMove("11")
-tttGame.playMove("01")
-tttGame.playMove("10")
+tttGame.playMove("11") // x
 tttGame.playMove("22")
+tttGame.playMove("10") // x
+tttGame.playMove("11")
 console.table(tttGame.board)
 
 
