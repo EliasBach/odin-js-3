@@ -7,6 +7,7 @@ const tttGame = (function () {
     let row3 = [".", ",", "."]
     let board = [row1, row2, row3]
     let turn_counter = 0
+    let win = false
     const markers = ["x", "o"]
 
     function playMove (box_id) {
@@ -22,7 +23,6 @@ const tttGame = (function () {
     }
 
     function checkWin () {
-        let win = false
         while (!win) {
             // check horizontal wins: 
             // marker in rowX[0] = rowX[1] = rowX[2] 
@@ -56,11 +56,11 @@ const tttGame = (function () {
     }
 
     function reset() {
-        row1 = [".", ",", "."]
-        row2 = [",", "+", ","]
-        row3 = [".", ",", "."]
-        board = [row1, row2, row3]
-        turn_counter = 0
+        board[0] = [".", ",", "."]
+        board[1] = [",", "+", ","]
+        board[2] = [".", ",", "."]
+        tttGame.turn_counter = 0
+        win = false
     }
 
     return {board, markers, turn_counter, playMove, checkWin, reset};
@@ -73,6 +73,11 @@ const tttGameDisplay = (function () {
         box.addEventListener("click", function(){
             tttGame.playMove(this.id)
             console.table(tttGame.board)
+            if (tttGame.turn_counter%2 != 0) {
+                this.textContent = tttGame.markers[0]
+            } else {
+                this.textContent = tttGame.markers[1]
+            }
             console.log("turn", tttGame.turn_counter)
             console.log("win:", tttGame.checkWin())
             this.disabled = true
@@ -83,9 +88,9 @@ const tttGameDisplay = (function () {
         console.log("RESET")
         boxElements.forEach(box => {
             box.disabled = false
+            box.textContent = ""
         })
         tttGame.reset()
-        console.table(tttGame.board)
     }
 
     const resetBtn = document.querySelector(".reset")
