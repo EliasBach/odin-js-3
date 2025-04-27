@@ -1,28 +1,27 @@
-// Your main goal here is to have as little global code as possible. Try tucking as much as you can inside factories. 
-// If you only need a single instance of something (e.g. the gameboard, the displayController etc.) then wrap the factory inside an IIFE (module pattern) so it cannot be reused to create additional instances.
+// BACKEND
 
-const tttGame = (function () {
+const tttGame = (function() {
     let row1 = [".", ",", "."]
-    let row2 = [",", "+", ","]
+    let row2 = [",", "~", ","]
     let row3 = [".", ",", "."]
     let board = [row1, row2, row3]
     let turn_counter = 0
-    let win = false
+    let win_state = false
     const markers = ["x", "o"]
-
+    
     function playMove (box_id) {
         let row = box_id[0]
         let col = box_id[1]
-
-        if (turn_counter%2 == 0) {
+        if (tttGame.turn_counter%2 == 0) {
             board[row][col] = markers[0]
         } else {
             board[row][col] = markers[1]
         }
-        turn_counter++
+        tttGame.turn_counter++
     }
 
     function checkWin () {
+        let win = false
         while (!win) {
             // check horizontal wins: 
             // marker in rowX[0] = rowX[1] = rowX[2] 
@@ -52,49 +51,57 @@ const tttGame = (function () {
             }
             break
         }
+        tttGame.win_state = win
         return win
     }
+
 
     function reset() {
         board[0] = [".", ",", "."]
         board[1] = [",", "+", ","]
         board[2] = [".", ",", "."]
         turn_counter = 0
-        win = false
     }
 
-    return {board, markers, turn_counter, playMove, checkWin, reset};
+    function info() {
+        console.table(board) 
+        console.log(checkWin())
+        console.log("turn:", turn_counter)
+    }
+
+    return {board, turn_counter, win_state, markers, 
+            playMove, checkWin, reset, info}
 })();
 
-const tttGameDisplay = (function () {
-    // assign interactity to each box
-    const boxElements = document.querySelectorAll(".box")
-    boxElements.forEach(box => {
-        box.addEventListener("click", function(){
-            tttGame.playMove(this.id)
-            console.table(tttGame.board)
-            if (tttGame.turn_counter%2 != 0) {
-                this.textContent = tttGame.markers[0]
-            } else {
-                this.textContent = tttGame.markers[1]
-            }
-            console.log("turn", tttGame.turn_counter)
-            console.log("win:", tttGame.checkWin())
-            this.disabled = true
-        })
+
+// FRONT END
+const boxElements = document.querySelectorAll(".box")
+boxElements.forEach(box => {
+    box.addEventListener("click", function(){
+        tttGame.playMove(this.id)
+        if (tttGame.turn_counter%2 != 0) {
+            this.textContent = tttGame.markers[0]
+        } else {
+            this.textContent = tttGame.markers[1]
+        }
+        console.log("turn", tttGame.turn_counter)
+        console.log("win:", tttGame.checkWin())
+        // maybe when assigning the EventListener it assign a constant?
+        // it has to be something with different instances being created in the EventListener
+        this.disabled = true
     })
+})
 
-    function restart() {
-        console.log("RESET")
-        boxElements.forEach(box => {
-            box.disabled = false
-            box.textContent = ""
-        })
-        tttGame.reset()
-    }
+const resetBtn = document.querySelector(".reset")
+resetBtn.addEventListener("click", restart)
 
-    const resetBtn = document.querySelector(".reset")
-    resetBtn.addEventListener("click", restart)
+function restart() {
+    console.log("RESET")
+    tttGame.reset()
+    tttGame.info()
+    boxElements.forEach(box => {
+        box.disabled = false
+        box.textContent = ""
+    })
+}
 
-  return {}
-})();
