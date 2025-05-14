@@ -1,6 +1,7 @@
 :root {
     --theme-color-1: rgb(0,0,100);
     --theme-color-2: rgb(240,255,255);
+    font-family: sans-serif;
   }
 
 .container {
@@ -10,7 +11,6 @@
   }
   
   .box {
-    font-family: sans-serif;
     font-size: 28px;
     font-weight: bold;
     color: var(--theme-color-1);
@@ -22,12 +22,10 @@
     border-width: 1px;
     border-color: var(--theme-color-1);
     background-color: var(--theme-color-2);
-
   }
   
   .reset {
-    margin-top: 10px;
-    height: 30px;
+    height: 20px;
     width: 60px;
     font-family: monospace;
     color: var(--theme-color-2);
@@ -38,4 +36,14 @@
 
   .reset:active {
     background-color: blue;
+  }
+
+  .status {
+    color: var(--theme-color-1);
+    font-size: 16px;
+  }
+
+  span {
+    color: var(--theme-color-1);
+    font-size: 12px;
   }

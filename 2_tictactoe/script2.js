@@ -92,14 +92,14 @@ const TicTacToeDisplay = (function() {
     function displayMessage() {
         if (TicTacToe.getWin()) {
             statusMessage.textContent = 
-                `Congrats, Player ${currentPlayer} wins!`
+                `Player ${currentPlayer} wins!`
         } else if (TicTacToe.getTurncount() == 9){
             statusMessage.textContent =
                 "Game over. It's a draw!" 
         } else {
             currentPlayer = TicTacToe.getTurncount()%2+1
             statusMessage.textContent = 
-                `It's Player ${currentPlayer}'s turn`
+                `Player ${currentPlayer}'s turn`
         }
     }
 
@@ -123,7 +123,7 @@ const TicTacToeDisplay = (function() {
             box.disabled = false
             box.textContent = ""
         })
-        statusMessage.textContent = "Game start, Player 1 make your move!"
+        statusMessage.textContent = "Game start!"
         console.log("RESET")
         TicTacToe.reset()
         TicTacToe.displayState()
