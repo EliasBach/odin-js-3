@@ -5,7 +5,7 @@ const TicTacToe = (function() {
         [".", ",", "."],
         [",", "+", ","],
         [".", ",", "."]]
-    let turnCounter = 0
+    let turncount = 0
     let markers = ["X", "O"]
     
     // private methods
@@ -13,19 +13,24 @@ const TicTacToe = (function() {
 
     // public methods (incl. getters and board actions)
     return { 
-        getBoard: function() {
-            return board
+    displayState: function() {
+            console.table(board)
+            console.log("Turn:", turncount)
         },
         
         playMove: function(row, col) {
-            board[row][col] = markers[0]
+            turncount%2 == 0 ? marker = markers[0] : marker = markers[1]
+            board[row][col] = marker
+            turncount++
         }
     }
 })();
 
 // testing game flow
-console.table(TicTacToe.getBoard())
+TicTacToe.displayState()
 TicTacToe.playMove(1,2)
-console.table(TicTacToe.getBoard())
+TicTacToe.displayState()
 TicTacToe.playMove(2,2)
-console.table(TicTacToe.getBoard())
+TicTacToe.displayState()
+TicTacToe.playMove(3,0)
+TicTacToe.displayState()
