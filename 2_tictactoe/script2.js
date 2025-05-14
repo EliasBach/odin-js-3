@@ -61,6 +61,10 @@ const TicTacToe = (function() {
         getWin: function() {
             return win
         },
+
+        getTurncount: function() {
+            return turncount
+        },
         
         playMove: function(row, col) {
             let marker = getCurrentMarker()
@@ -85,9 +89,15 @@ const TicTacToeDisplay = (function() {
     // assign reference to status message
     const statusMessage = document.querySelector(".status")
     function displayMessage() {
+        let currentPlayer = 0
         if (!TicTacToe.getWin()) {
-            statusMessage.textContent = "Player"
-        } 
+            currentPlayer = TicTacToe.getTurncount()%2+1
+            statusMessage.textContent = 
+                `It's Player ${currentPlayer}'s turn!`
+        } else {
+            statusMessage.textContent = 
+                `Congrats to Player ${currentPlayer}, you win!`
+        }
     }
 
     // assign interactity to each box
@@ -95,8 +105,8 @@ const TicTacToeDisplay = (function() {
     boxElements.forEach(box => {
         box.addEventListener("click", function(){
             this.textContent = TicTacToe.getCurrentMarker()
-            TicTacToe.playMove(this.id[0], this.id[1])
             this.disabled = true
+            TicTacToe.playMove(this.id[0], this.id[1])
             TicTacToe.displayState()
             displayMessage()
         })
