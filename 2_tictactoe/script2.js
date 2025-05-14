@@ -1,6 +1,5 @@
 const TicTacToe = (function() {
     // private state
-    
     let board = [
         [".", ",", "."],
         [",", "+", ","],
@@ -50,7 +49,7 @@ const TicTacToe = (function() {
 
     // public methods (incl. getters and board actions)
     return { 
-    displayState: function() {
+        displayState: function() {
             console.table(board)
             console.log("Turn:", turncount)
             console.log("Win:", win)
@@ -88,3 +87,15 @@ TicTacToe.playMove(0,0)
 TicTacToe.displayState()
 TicTacToe.reset()
 TicTacToe.displayState()
+
+// DOM display
+const TicTacToeDisplay = (function() {
+    // assign interactity to each box
+    const boxElements = document.querySelectorAll(".box")
+    boxElements.forEach(box => {
+        box.addEventListener("click", function(){
+            this.textContent = "E"
+            this.disabled = true
+        })
+    })
+})();
