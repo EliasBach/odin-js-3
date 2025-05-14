@@ -8,10 +8,9 @@ const TicTacToe = (function() {
     let markers = ["X", "O"]
     let win = false
     
-    // private methods
     function getCurrentMarker() {
         return markers[turncount%2]
-    }    
+    }   
 
     function checkWin() {
         while (!win) {
@@ -54,6 +53,14 @@ const TicTacToe = (function() {
             console.log("Turn:", turncount)
             console.log("Win:", win)
         },
+
+        getCurrentMarker: function() {
+            return markers[turncount%2]
+        },
+        
+        getWin: function() {
+            return win
+        },
         
         playMove: function(row, col) {
             let marker = getCurrentMarker()
@@ -73,29 +80,25 @@ const TicTacToe = (function() {
     }
 })();
 
-// testing game flow
-TicTacToe.displayState()
-TicTacToe.playMove(1,1)
-TicTacToe.displayState()
-TicTacToe.playMove(0,2)
-TicTacToe.displayState()
-TicTacToe.playMove(2,2)
-TicTacToe.displayState()
-TicTacToe.playMove(0,1)
-TicTacToe.displayState()
-TicTacToe.playMove(0,0)
-TicTacToe.displayState()
-TicTacToe.reset()
-TicTacToe.displayState()
-
 // DOM display
 const TicTacToeDisplay = (function() {
+    // assign reference to status message
+    const statusMessage = document.querySelector(".status")
+    function displayMessage() {
+        if (!TicTacToe.getWin()) {
+            statusMessage.textContent = "Player"
+        } 
+    }
+
     // assign interactity to each box
     const boxElements = document.querySelectorAll(".box")
     boxElements.forEach(box => {
         box.addEventListener("click", function(){
-            this.textContent = "E"
+            this.textContent = TicTacToe.getCurrentMarker()
+            TicTacToe.playMove(this.id[0], this.id[1])
             this.disabled = true
+            TicTacToe.displayState()
+            displayMessage()
         })
     })
 
@@ -111,6 +114,4 @@ const TicTacToeDisplay = (function() {
         TicTacToe.reset()
         TicTacToe.displayState()
     }
-
-  return {}
 })();
