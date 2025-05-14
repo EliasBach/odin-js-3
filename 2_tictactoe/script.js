@@ -1,28 +1,18 @@
-// Your main goal here is to have as little global code as possible. Try tucking as much as you can inside factories. 
-// If you only need a single instance of something (e.g. the gameboard, the displayController etc.) then wrap the factory inside an IIFE (module pattern) so it cannot be reused to create additional instances.
-
-const tttGame = (function () {
-    let row1 = [".", ",", "."]
-    let row2 = [",", "+", ","]
-    let row3 = [".", ",", "."]
-    let board = [row1, row2, row3]
-    let turn_counter = 0
+const TicTacToe = (function() {
+    // private state
+    let board = [
+        [".", ",", "."],
+        [",", "+", ","],
+        [".", ",", "."]]
+    let turncount = 0
+    let markers = ["X", "O"]
     let win = false
-    const markers = ["x", "o"]
+    
+    function getCurrentMarker() {
+        return markers[turncount%2]
+    }   
 
-    function playMove (box_id) {
-        let row = box_id[0]
-        let col = box_id[1]
-
-        if (turn_counter%2 == 0) {
-            board[row][col] = markers[0]
-        } else {
-            board[row][col] = markers[1]
-        }
-        turn_counter++
-    }
-
-    function checkWin () {
+    function checkWin() {
         while (!win) {
             // check horizontal wins: 
             // marker in rowX[0] = rowX[1] = rowX[2] 
@@ -35,6 +25,7 @@ const tttGame = (function () {
                 
             // check vertical wins: 
             // marker in row1[i] = row2[i] = row3[i]
+            row1 = board[0]; row2 = board[1]; row3 = board[2]
             for (let i=0; i<3; i++) {
                 if ((row1[i] == row2[i]) && (row2[i] == row3[i])) {
                     win = true
@@ -55,46 +46,86 @@ const tttGame = (function () {
         return win
     }
 
-    function reset() {
-        board[0] = [".", ",", "."]
-        board[1] = [",", "+", ","]
-        board[2] = [".", ",", "."]
-        turn_counter = 0
-        win = false
-    }
+    // public methods (incl. getters and board actions)
+    return { 
+        displayState: function() {
+            console.table(board)
+            console.log("Turn:", turncount)
+            console.log("Win:", win)
+        },
 
-    return {board, markers, turn_counter, playMove, checkWin, reset};
+        getCurrentMarker: function() {
+            return markers[turncount%2]
+        },
+        
+        getWin: function() {
+            return win
+        },
+
+        getTurncount: function() {
+            return turncount
+        },
+        
+        playMove: function(row, col) {
+            let marker = getCurrentMarker()
+            board[row][col] = marker
+            turncount++
+            win = checkWin()
+        },
+
+        reset: function() {
+            board = [
+                [".", ",", "."],
+                [",", "+", ","],
+                [".", ",", "."]]
+            turncount = 0
+            win = false
+        }
+    }
 })();
 
-const tttGameDisplay = (function () {
+// DOM display
+const TicTacToeDisplay = (function() {
+    // assign reference to status message
+    const statusMessage = document.querySelector(".status")
+    let currentPlayer = 0
+    function displayMessage() {
+        if (TicTacToe.getWin()) {
+            statusMessage.textContent = 
+                `Player ${currentPlayer} wins!`
+        } else if (TicTacToe.getTurncount() == 9){
+            statusMessage.textContent =
+                "Game over. It's a draw!" 
+        } else {
+            currentPlayer = TicTacToe.getTurncount()%2+1
+            statusMessage.textContent = 
+                `Player ${currentPlayer}'s turn`
+        }
+    }
+
     // assign interactity to each box
     const boxElements = document.querySelectorAll(".box")
     boxElements.forEach(box => {
         box.addEventListener("click", function(){
-            tttGame.playMove(this.id)
-            console.table(tttGame.board)
-            if (tttGame.turn_counter%2 != 0) {
-                this.textContent = tttGame.markers[0]
-            } else {
-                this.textContent = tttGame.markers[1]
-            }
-            console.log("turn", tttGame.turn_counter)
-            console.log("win:", tttGame.checkWin())
+            this.textContent = TicTacToe.getCurrentMarker()
             this.disabled = true
+            TicTacToe.playMove(this.id[0], this.id[1])
+            TicTacToe.displayState()
+            displayMessage()
         })
     })
 
-    function restart() {
-        console.log("RESET")
+    // reset functionality
+    const resetBtn = document.querySelector(".reset")
+    resetBtn.addEventListener("click", reset)
+    function reset() {
         boxElements.forEach(box => {
             box.disabled = false
             box.textContent = ""
         })
-        tttGame.reset()
+        statusMessage.textContent = "Game start!"
+        console.log("RESET")
+        TicTacToe.reset()
+        TicTacToe.displayState()
     }
-
-    const resetBtn = document.querySelector(".reset")
-    resetBtn.addEventListener("click", restart)
-
-  return {}
 })();
