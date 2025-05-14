@@ -98,4 +98,19 @@ const TicTacToeDisplay = (function() {
             this.disabled = true
         })
     })
+
+    // reset functionality
+    const resetBtn = document.querySelector(".reset")
+    resetBtn.addEventListener("click", reset)
+    function reset() {
+        boxElements.forEach(box => {
+            box.disabled = false
+            box.textContent = ""
+        })
+        console.log("RESET")
+        TicTacToe.reset()
+        TicTacToe.displayState()
+    }
+
+  return {}
 })();
