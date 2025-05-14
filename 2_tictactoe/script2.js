@@ -88,15 +88,18 @@ const TicTacToe = (function() {
 const TicTacToeDisplay = (function() {
     // assign reference to status message
     const statusMessage = document.querySelector(".status")
+    let currentPlayer = 0
     function displayMessage() {
-        let currentPlayer = 0
-        if (!TicTacToe.getWin()) {
+        if (TicTacToe.getWin()) {
+            statusMessage.textContent = 
+                `Congrats, Player ${currentPlayer} wins!`
+        } else if (TicTacToe.getTurncount() == 9){
+            statusMessage.textContent =
+                "Game over. It's a draw!" 
+        } else {
             currentPlayer = TicTacToe.getTurncount()%2+1
             statusMessage.textContent = 
-                `It's Player ${currentPlayer}'s turn!`
-        } else {
-            statusMessage.textContent = 
-                `Congrats to Player ${currentPlayer}, you win!`
+                `It's Player ${currentPlayer}'s turn`
         }
     }
 
@@ -120,6 +123,7 @@ const TicTacToeDisplay = (function() {
             box.disabled = false
             box.textContent = ""
         })
+        statusMessage.textContent = "Game start, Player 1 make your move!"
         console.log("RESET")
         TicTacToe.reset()
         TicTacToe.displayState()
