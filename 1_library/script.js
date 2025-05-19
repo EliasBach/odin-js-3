@@ -26,6 +26,7 @@ submitBookBtn.addEventListener("click", () => {
   reset_inputs()
 })
 
+/*
 function Book(title, author, pages, read) {
   if (!new.target) {
     throw Error("Use 'new' operator when calling a constructor")
@@ -39,12 +40,35 @@ function Book(title, author, pages, read) {
 
 Book.prototype.toggleReadStatus = function() {
   this.read = !this.read
-  return this.read_status
+  return this.read
 }
 
 Book.prototype.info = function() {
   return `${this.title} by ${this.author}, ${this.pages} pages | `
-}
+} */
+
+// REFACTOR using class syntax
+
+class Book {
+  constructor(title, author, pages, read) {
+    this.title = title; // string
+    this.author = author; // string
+    this.pages = pages // number
+    this.read = read // boolean
+    this.id = crypto.randomUUID()
+  }
+
+  info() {
+    return `${this.title} by ${this.author}, ${this.pages} pages | `
+  }
+
+  // Static properties are defined on the class itself 
+  // instead of each instance
+  static toggleReadStatus() {
+    this.read = !this.read
+    return this.read
+  }
+}  
 
 function addBookToLibrary(title, author, pages, read=false) {
   let newbook = new Book(title, author, pages, read)
