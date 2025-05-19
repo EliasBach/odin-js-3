@@ -48,7 +48,6 @@ Book.prototype.info = function() {
 } */
 
 // REFACTOR using class syntax
-
 class Book {
   constructor(title, author, pages, read) {
     this.title = title; // string
