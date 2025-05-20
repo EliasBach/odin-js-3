@@ -1,11 +1,31 @@
 :root {
   font-family: sans-serif;
-  --theme-color-1: rgb(210, 236, 180);
-  --theme-color-2: rgb(234, 192, 240);
-  --theme-color-3: rgb(233, 199, 154);
+  --theme-color-1: rgb(150, 30, 0);
+  --theme-color-2: rgb(200, 80, 50);
+  --theme-color-3: rgb(250, 165, 180);
+  --theme-color-4: rgb(255, 215, 215);
 }
 
 body {
-  background-color: rgb(240, 240, 240);
+  background-color: var(--theme-color-4);
   text-align: center;
+}
+
+header {
+  color: var(--theme-color-1);
+  font-weight: bold;
+}
+
+button {
+  color: var(--theme-color-4);
+  background-color: var(--theme-color-1);
+  border-style: none;
+  border-radius: 5px;
+}
+
+#content {
+  border-style: solid;
+  border-color: var(--theme-color-1);
+  color: var(--theme-color-3);
+  border-radius: 10px;
 }
