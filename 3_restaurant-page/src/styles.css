@@ -26,6 +26,6 @@ button {
 #content {
   border-style: solid;
   border-color: var(--theme-color-1);
-  color: var(--theme-color-3);
+  color: var(--theme-color-1);
   border-radius: 10px;
 }

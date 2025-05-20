@@ -2,6 +2,7 @@ import "./styles.css";
 import "./tab_home"
 import "./tab_menu"
 import "./tab_contact"
+import create_HomeTab from "./tab_home";
 
 
 const header = document.querySelector("header")
@@ -12,6 +13,8 @@ const content = document.querySelector("#content")
 
 const homeBtn = document.createElement("button")
 homeBtn.textContent = "Home"
+homeBtn.addEventListener("click", create_HomeTab)
+
 const menuBtn = document.createElement("button")
 menuBtn.textContent = "Menu"
 const contactBtn = document.createElement("button")
