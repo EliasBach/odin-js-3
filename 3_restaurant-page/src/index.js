@@ -3,8 +3,11 @@ import "./tab_home"
 import "./tab_menu"
 import "./tab_contact"
 
-const nav = document.querySelector("nav")
+
 const header = document.querySelector("header")
+header.textContent = "Welcome to the Odin Restaurant"
+
+const nav = document.querySelector("nav")
 const content = document.querySelector("#content")
 
 const homeBtn = document.createElement("button")
@@ -13,7 +16,6 @@ const menuBtn = document.createElement("button")
 menuBtn.textContent = "Menu"
 const contactBtn = document.createElement("button")
 contactBtn.textContent = "Contact"
-
 
 nav.appendChild(homeBtn)
 nav.appendChild(menuBtn)
