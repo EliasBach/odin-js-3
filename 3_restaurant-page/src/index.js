@@ -11,7 +11,7 @@ const homeBtn = document.createElement("button")
 homeBtn.textContent = "Home"
 const menuBtn = document.createElement("button")
 menuBtn.textContent = "Menu"
-const aboutBtn = document.createElement("button")
+const contactBtn = document.createElement("button")
 contactBtn.textContent = "Contact"
 
 
