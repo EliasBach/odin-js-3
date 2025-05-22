@@ -1,9 +1,9 @@
 :root {
   font-family: sans-serif;
-  --theme-color-1: rgb(150, 30, 0);
-  --theme-color-2: rgb(200, 80, 50);
-  --theme-color-3: rgb(250, 165, 180);
-  --theme-color-4: rgb(255, 215, 215);
+  --theme-color-1: rgb(125, 25, 0);
+  --theme-color-2: rgb(175, 50, 5);
+  --theme-color-3: rgb(255, 225, 225);
+  --theme-color-4: rgb(250, 240, 240);
 }
 
 body {
@@ -14,13 +14,24 @@ body {
 header {
   color: var(--theme-color-1);
   font-weight: bold;
+  margin: 10px;
 }
 
 button {
   color: var(--theme-color-4);
   background-color: var(--theme-color-1);
   border-style: none;
-  border-radius: 5px;
+  border: 5px;
+  width: 80px;
+  height: 20px;
+}
+
+#homeBtn {
+  border-top-left-radius: 10px;
+}
+
+#contactBtn {
+  border-top-right-radius: 10px;
 }
 
 #content {
@@ -30,11 +41,21 @@ button {
   border-radius: 10px;
 }
 
-.tab {
+.section {
+  background-color: var(--theme-color-3);
   border-style: solid;
   border-width: 1px;
   margin: 5px;
   border-radius: 5px;
+  padding: 5px;
+}
+
+.header {
+  font-size: 24px;
+}
+
+.text {
+  font-size: 16px;
 }
 
 #main_header {
@@ -42,5 +63,6 @@ button {
 }
 
 #description {
-  font-size: 12px;
+  text-align: justify;
+  padding: 10px;
 }
