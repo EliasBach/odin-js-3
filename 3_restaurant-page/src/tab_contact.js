@@ -1,4 +1,12 @@
-// module contains code to create DOM elements
-// to display info in the about tab
+// creates the content for the contact tab
+const tab = document.createElement("div")
+tab.classList.add("tab")
 
 // contact infos, opening hours
+const sec1 = document.createElement("div")
+sec1.classList.add("section")
+
+const main_header = document.createElement("div")
+
+
+export default tab
