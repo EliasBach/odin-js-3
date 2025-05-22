@@ -37,6 +37,10 @@ button {
   border-radius: 5px;
 }
 
-.header {
+#main_header {
   font-size: 30px;
+}
+
+#description {
+  font-size: 12px;
 }

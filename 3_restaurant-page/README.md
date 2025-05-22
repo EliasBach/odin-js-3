@@ -7,4 +7,4 @@ Concepts Tested:
 * modules
 * development vs production
 
-Notes to self: 
+Potential future improvementes: adding responsiveness to the site, as the site currently uses absolute sizing and no relative sizing. 
