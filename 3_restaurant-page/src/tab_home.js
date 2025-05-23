@@ -2,7 +2,7 @@
 const tab = document.createElement("div")
 tab.classList.add("tab")
 
-// description
+// SECTION 1: description
 const sec1 = document.createElement("div")
 sec1.classList.add("section")
 
@@ -19,7 +19,7 @@ description.textContent = "Welcome to Odin’s! Where timeless Norse tradition m
 sec1.appendChild(main_header)
 sec1.appendChild(description)
 
-// opening hours
+// SECTION 2: opening hours
 const sec2 = document.createElement("div")
 sec2.classList.add("section")
 
@@ -34,7 +34,7 @@ hours_text.textContent = "Monday - Friday: 12:00 til 22:00   |   Saturday - Sund
 sec2.appendChild(hours_header)
 sec2.appendChild(hours_text)
 
-// address
+// SECTION 3: address and map
 const sec3 = document.createElement("div")
 sec3.classList.add("section")
 
@@ -44,13 +44,19 @@ address_header.textContent = "Address"
 
 const address_text = document.createElement("div")
 address_text.classList.add("text")
-address_text.textContent = "Freya Boulevard 99, 474NO Oslo, Norway"
+address_text.textContent = "Freya Boulevard 99, 474B Oslo, Norway"
+
+import location_imgpath from "./media/location_map.png"
+const location_map = document.createElement("img")
+location_map.src = location_imgpath
+location_map.setAttribute("id", "map")
 
 sec3.appendChild(address_header)
 sec3.appendChild(address_text)
+sec3.appendChild(location_map)
 
+// add everything to tab
 tab.appendChild(sec1)
 tab.appendChild(sec2)
 tab.appendChild(sec3)
-
 export default tab

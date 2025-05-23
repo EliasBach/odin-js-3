@@ -6,7 +6,7 @@ tab.classList.add("tab")
 const sec1 = document.createElement("div")
 sec1.classList.add("section")
 
-const main_header = document.createElement("div")
+const starters_header = document.createElement("div")
 
 
 export default tab
