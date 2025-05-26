@@ -7,4 +7,6 @@ Concepts Tested:
 * modules
 * development vs production
 
-Potential future improvementes: adding responsiveness to the site, as the site currently uses absolute sizing and no relative sizing. 
+Potential future improvementes: 
+* adding responsiveness to the site, as the site currently uses absolute sizing and no relative sizing
+* menu items and images could be displayed using flexbox
