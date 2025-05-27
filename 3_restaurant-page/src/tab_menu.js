@@ -41,7 +41,6 @@ tab.appendChild(sec3)
 tab.appendChild(sec4)
 
 // add all menu items here to appropriate section using function
-
 createMenuItem(1, "entree A", "4.00")
 createMenuItem(1, "entree B", "4.50")
 createMenuItem(1, "entree C", "4.00")
@@ -54,7 +53,7 @@ createMenuItem(2, "main D", "16.00")
 createMenuItem(3, "dessert A", "6.00")
 createMenuItem(3, "dessert B", "4.00")
 
-
+// ------------------------------------------------------------
 import food_img_placeholder from "./media/food_placeholder.jpg"
 
 function createMenuItem(type, name="menu item", price="XX $") {

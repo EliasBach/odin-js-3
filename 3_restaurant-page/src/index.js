@@ -27,6 +27,7 @@ nav.appendChild(contactBtn)
 // the current contents of div#content 
 // and populates it with the content defined in corresponding module
 const content = document.querySelector("#content")
+create_homeTab()
 
 import homeTab from "./tab_home"
 import menuTab from "./tab_menu"
